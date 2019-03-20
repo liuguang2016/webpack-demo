@@ -54,7 +54,7 @@
 
 1.在entry入口中手动配置分离代码。
 
-​    SplitChunksPlugin剔除重复的代码，wepack配置：
+    SplitChunksPlugin剔除重复的代码，wepack配置：
 
 ```js
   optimization:{
@@ -74,5 +74,39 @@ output: {
   },
 ```
 
+# 第七阶段：缓存的管理
 
+[^版本version]: 1.6.0
+
+代码修改发布后，由于浏览器的缓存功能，可能不会去服务器上获取新的代码。这是就需要用户去强制刷新和清理缓存。这样的用户体验很不好，该如何解决呢？
+
+1.通过配置，将不常修改的依赖如react,lodash等库单独打包，而可能频繁改动的代码再打包。当代码内容修改后文件名的hash值发生改变，从而保证浏览器会重新去服务器获取。
+
+```javascript
+plugins:[
+    new CleanWebpackPlugin({
+        cleanOnceBeforeBuildPatterns:['**/*','dist']
+    }),
+    new HtmlWebpackPlugin({
+        titile:'Caching'
+    }),
+    new webpack.HashedModuleIdsPlugin(),
+  ],
+  output: {
+    filename:'[name].[contenthash].js',
+    path: path.resolve(__dirname, 'dist')
+  },
+  optimization: {
+    runtimeChunk: 'single',
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all'
+        }
+      }
+    }
+  }
+```
 
