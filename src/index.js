@@ -1,18 +1,13 @@
-import _ from 'lodash';
-import printMe from './print.js';
-import { EMLINK } from 'constants';
 
-function component(){
-    let element = document.createElement('div');
-    let btn=document.createElement('button');
-    // lodash（目前通过一个 script 引入）对于执行这一行是必需的
-    element.innerHTML = _.join(['hello','webpack'],' ');
-    btn.innerHTML = '点击这里，然后查看 console.log!';
-    btn.onclick = printMe;
+async function getComponent(){
+   var element = document.createElement('div');
+   const { default: _ } = await import(/* webpackChunkName: "lodash" */ 'lodash');
 
-    element.appendChild(btn);
+   element.innerHTML = _.join(['Hello', 'webpack'], ' ');
 
-    return element;
+   return element;
 }
 
-document.body.appendChild(component());
+getComponent().then(component=>{
+    document.body.appendChild(component);
+})
