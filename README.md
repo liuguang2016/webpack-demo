@@ -38,5 +38,13 @@
 
 1.通过修改webpack-dev-server的配置，在项目运行时更新所有类型的模块。
 
+# 第五阶段：生产环境配置
+
+[^版本version]: 1.4.0
+
+1.生产环境和开发环境分别配置webpack配置，webpack-merge来写不重复的代码
+
+2.`NODE_ENV` 是一个由 Node.js 暴露给执行脚本的系统环境变量，process.env.NODE_ENV可用来判断环境是否为production
+
 
 
