@@ -46,5 +46,33 @@
 
 2.`NODE_ENV` 是一个由 Node.js 暴露给执行脚本的系统环境变量，process.env.NODE_ENV可用来判断环境是否为production
 
+# 第六阶段：代码分离
+
+[^版本version]: 1.5.0
+
+现在的代码打包后都是放在一个bundle中，这意味着在加载时需要一次请求全部的代码，这明显示不合理。正常的代码应该是按功能或需求分开放在不同的代码文件中，然后按需加载，减少加载的时间。
+
+1.在entry入口中手动配置分离代码。
+
+​    SplitChunksPlugin剔除重复的代码，wepack配置：
+
+```js
+  optimization:{
+    splitChunks:{
+      chunks:'all'
+    }
+  }
+```
+
+2.动态代码拆分，使用符合ECMA提案的import语法来实现动态导入。
+
+```javascript
+output: {
+    filename:'[name].bundle.js',
+    chunkFilename:'[name].bundle.js',//分离
+    path: path.resolve(__dirname, 'dist')
+  },
+```
+
 
 
