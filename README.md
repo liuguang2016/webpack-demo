@@ -110,3 +110,32 @@ plugins:[
   }
 ```
 
+# 第八阶段：创建一个npm环境
+
+[^版本version]: 1.7.0
+
+开发到一定阶段，使用了很多别人的包。到我写到此处时，现在的npm包总数量也达到937843个，在开发的过程中绝大多数需求都能找到对应的包。但面对实际开发中不可预测的业务与需求，有时我们也很难再如此海量的npm包中找到一款适合自己的。这时就不免生出自己去开发一个npm的想法。以下就是在webpack下搭建一个npm开发环境。
+
+1.不打包我们开发中用到的第三方包，而是通过外部控件来要求用户加载第三方包。
+
+```javascript
+  externals: {
+    lodash: {
+      commonjs: 'lodash',
+      commonjs2: 'lodash',
+      amd: 'lodash',
+      root: '_'
+    }
+  }
+```
+
+2.为了能兼容不同的环境（CommonJS,AMD,Node.js,全局变量）,需要暴露library.
+
+```javascript
+output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'webpack-numbers.js',
+    library: 'webpackNumbers'
+  },
+```
+
