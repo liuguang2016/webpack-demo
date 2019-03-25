@@ -4,7 +4,8 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   entry:{
-    app:'./src/index.js'
+    index:'./src/index.js',
+    polyfills:'./src/polyfills.js'
   },
   plugins:[
     new CleanWebpackPlugin({cleanOnceBeforeBuildPatterns:['**/*','dist']}),
@@ -15,14 +16,5 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     library: 'webpackNumbers',
     libraryTarget: 'umd'
-  },
-  externals: {
-    lodash: {
-      commonjs: 'lodash',
-      commonjs2: 'lodash',
-      amd: 'lodash',
-      umd: 'lodash',
-      root: '_'
-    }
   }
 };

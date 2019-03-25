@@ -139,3 +139,17 @@ output: {
   },
 ```
 
+# 第九阶段：shimming的使用
+
+[^版本version]: 1.8.0
+
+当你希望 [polyfill](https://en.wikipedia.org/wiki/Polyfill) 浏览器功能以支持更多用户时,但只想将这些polyfills提供到需要修补的浏览器，按需加载。
+
+1.让我们把 `import` 放入一个新文件，并加入 [`whatwg-fetch`](https://github.com/github/fetch) polyfill
+
+2.在webpack的配置文件，entry中添加polyfills: './src/polyfills.js'
+
+3.判断需要polyfill的方法是否在用户浏览器中存在，加载polyfills
+
+
+

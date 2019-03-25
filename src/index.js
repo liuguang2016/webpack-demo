@@ -1,14 +1,20 @@
-import _ from 'lodash';
-import numRef from './ref.json';
 
-export function numToWord(num) {
-  return _.reduce(numRef, (accum, ref) => {
-    return ref.num === num ? ref.word : accum;
-  }, '');
-};
+ function component() {
+   var element = document.createElement('div');
 
-export function wordToNum(word) {
-  return _.reduce(numRef, (accum, ref) => {
-    return ref.word === word && word.toLowerCase() ? ref.num : accum;
-  }, -1);
-};
+    element.innerHTML = join(['Hello', 'webpack'], ' ');
+    // Assume we are in the context of `window`
+    this.alert('Hmmm, this probably isn\'t a great idea...')
+
+    return element;
+  }
+
+  document.body.appendChild(component());
+
+  fetch('https://jsonplaceholder.typicode.com/users')
+   .then(response => response.json())
+   .then(json => {
+     console.log('We retrieved some data! AND we\'re confident it will work on a variety of browser distributions.')
+     console.log(json)
+   })
+   .catch(error => console.error('Something went wrong when fetching this data: ', error))
